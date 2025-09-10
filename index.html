@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doolcoin - Твой Уникальный Кликер 🦆</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0c0a1e;
+            color: #E0E0E0;
+            overflow-x: hidden;
+        }
+        ::selection { background-color: #ec4899; color: white; }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #f87171, #fb923c, #f472b6, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .text-fill-animation {
+            color: transparent;
+            background: linear-gradient(90deg, #f87171, #fb923c, #f472b6, #a78bfa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            background-size: 200% 100%;
+            background-position: 100%;
+            animation: fill-text-animation 1.5s 0.5s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        @keyframes fill-text-animation { to { background-position: 0%; } }
+
+        .animated-gradient-bg {
+            background: linear-gradient(-45deg, #1e1b4b, #4a044e, #7f1d1d, #0c0a1e);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #f472b6, #a78bfa);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4);
+        }
+        .btn-primary:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(167, 139, 250, 0.5);
+        }
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-card {
+            background: rgba(23, 19, 56, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .glass-card .icon { background: linear-gradient(135deg, #f472b6, #a78bfa); }
+
+        #particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; }
+        
+        .hexagon-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #0c0a1e;
+            background-image:
+                linear-gradient(rgba(167, 139, 250, 0.04) 1.5px, transparent 1.5px),
+                linear-gradient(60deg, rgba(167, 139, 250, 0.04) 1.5px, transparent 1.5px),
+                linear-gradient(120deg, rgba(167, 139, 250, 0.04) 1.5px, transparent 1.5px);
+            background-size: 50px 86px;
+            z-index: 0; opacity: 0.7;
+        }
+
+        /* --- НОВЫЕ СТИЛИ для управляемой прокрутки --- */
+        .scroller-wrapper {
+            overflow-x: auto;
+            cursor: grab;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* Internet Explorer 10+ */
+        }
+        .scroller-wrapper::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+        .scroller {
+            display: flex;
+            gap: 1.5rem; /* 24px */
+        }
+        .scroller > div {
+             flex-shrink: 0;
+             width: 90%;
+             scroll-snap-align: center;
+        }
+        @media (min-width: 768px) {
+            .scroller > div {
+                width: calc(50% - 0.75rem);
+            }
+        }
+        @media (min-width: 1024px) {
+            .scroller > div {
+                width: calc(33.333% - 1rem);
+            }
+        }
+
+        .preview-circle { width: 120px; height: 120px; border-radius: 50%; position: relative; overflow: hidden; margin: 0 auto; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
+        .cosmic-rift-skin { background: #000010; }
+        .cosmic-rift-skin::before { content: ''; position: absolute; width: 300%; height: 300%; top: -100%; left: -100%; background-image: radial-gradient(circle at 20% 20%, #a252ff 0%, transparent 20%), radial-gradient(circle at 80% 30%, #6134eb 0%, transparent 15%), radial-gradient(circle at 30% 80%, #ff59f5 0%, transparent 10%); animation: rotate-vortex 25s linear infinite; }
+        .cosmic-rift-skin::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: black; clip-path: polygon(45% 0, 52% 28%, 48% 30%, 55% 45%, 50% 48%, 58% 68%, 55% 70%, 60% 100%, 50% 100%, 45% 75%, 50% 72%, 42% 55%, 48% 52%, 40% 35%, 44% 32%); animation: rift-glow 4s infinite ease-in-out; box-shadow: 0 0 15px 5px #a252ff, 0 0 25px 10px #6134eb, inset 0 0 10px #ff59f5; }
+        .legendary-skin { background: radial-gradient(circle, #ffcc00 20%, #ff8c00 60%, #ff4500 100%); box-shadow: 0 0 20px #ffdd77, 0 0 40px #ff8c00, 0 0 70px #ff4500; animation: legendary-pulse 2s infinite ease-in-out; }
+        .legendary-skin::after { content: ''; position: absolute; width: 200%; height: 200%; top: -50%; left: -50%; background-image: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 30%); animation: rotate-shine 8s linear infinite; }
+        .crystalmania-skin { background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(0, 255, 255, 0.4); box-shadow: 0 0 30px rgba(0, 200, 255, 0.6), inset 0 0 20px rgba(0, 255, 255, 0.3); backdrop-filter: blur(5px); }
+        .blackhole-skin { background-color: #000; box-shadow: 0 0 50px 20px rgba(100, 0, 200, 0.7), inset 0 0 40px black; animation: blackhole-pulse 5s infinite ease-in-out; }
+        .tap-effect { position: absolute; width: 100%; height: 100%; border-radius: 50%; background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%); pointer-events: none; animation: tap-animation 0.8s forwards; transform: scale(0); }
+        .legendary-tap-effect { position: absolute; width: 8px; height: 8px; background: #ffcc00; border-radius: 50%; pointer-events: none; box-shadow: 0 0 10px #ffcc00, 0 0 20px #ff8c00; animation: legendary-spark-fly 0.8s ease-out forwards; }
+        .blackhole-tap-effect { position: absolute; border-radius: 50%; border: 2px solid #9400D3; pointer-events: none; animation: blackhole-implode 0.6s ease-in forwards; }
+        .crystalmania-tap-effect { position: absolute; width: 15px; height: 15px; background: transparent; border: 2px solid; pointer-events: none; animation: crystal-shatter 0.7s ease-out forwards; }
+        .cosmic-rift-tap-effect { position: absolute; width: 4px; height: 4px; background-color: white; border-radius: 50%; pointer-events: none; box-shadow: 0 0 5px white, 0 0 10px #a252ff; animation: rift-star-fade 0.8s ease-out forwards; }
+        .preview-bg { width: 100%; height: 120px; border-radius: 1rem; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+        .cyber-grid-bg { background-color: #01041c; background-image: linear-gradient(rgba(0, 255, 255, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 255, 0.2) 1px, transparent 1px); background-size: 25px 25px, 25px 25px; animation: scroll-grid 4s linear infinite; }
+        .sakura-bg { background: linear-gradient(to bottom, #fde9e8, #f8c3d0); }
+        .petal { position: absolute; top: -20px; width: 10px; height: 10px; background-color: #ffb7c5; border-radius: 1px 10px; pointer-events: none; animation: fall linear infinite; }
+        .petal::after { content: ''; position: absolute; width: 10px; height: 10px; background-color: #ffb7c5; border-radius: 10px 1px; transform: rotate(30deg); }
+        
+        @keyframes rotate-vortex { to { transform: rotate(360deg); } }
+        @keyframes rift-glow { 50% { box-shadow: 0 0 25px 8px #a252ff, 0 0 40px 15px #6134eb, inset 0 0 15px #ff59f5; filter: brightness(1.5); } }
+        @keyframes legendary-pulse { 50% { transform: scale(1.05); box-shadow: 0 0 30px #ffdd77, 0 0 60px #ff8c00, 0 0 100px #ff4500; } }
+        @keyframes rotate-shine { to { transform: rotate(360deg); } }
+        @keyframes blackhole-pulse { 50% { transform: scale(0.98); box-shadow: 0 0 40px 15px rgba(120, 40, 220, 0.7); } }
+        @keyframes scroll-grid { to { background-position: 50px 50px, 50px 50px; } }
+        @keyframes fall { 100% { transform: translateY(150px) rotateZ(var(--rotation)); opacity: 0; } }
+        @keyframes tap-animation { from { transform: scale(0); opacity: 1;} to { transform: scale(1); opacity: 0;} }
+        @keyframes legendary-spark-fly { from { transform: scale(1) translate(0, 0); opacity: 1; } to { transform: scale(0) translate(var(--spark-x), var(--spark-y)); opacity: 0; } }
+        @keyframes blackhole-implode { from { transform: scale(10); opacity: 0.7; } to { transform: scale(0); opacity: 0; } }
+        @keyframes crystal-shatter { from { transform: rotate(0) scale(1); opacity: 1; } to { transform: rotate(var(--rot-end)) scale(3); opacity: 0; } }
+        @keyframes rift-star-fade { from { transform: scale(1); opacity: 1; } to { transform: scale(0); opacity: 0; } }
+        
+        body::-webkit-scrollbar { width: 8px; }
+        body::-webkit-scrollbar-track { background: #0c0a1e; }
+        body::-webkit-scrollbar-thumb { background-color: #a78bfa; border-radius: 20px; border: 3px solid #0c0a1e; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
+        <div class="hexagon-bg"></div>
+        <div id="particles-js"></div>
+        <div id="hero-content" class="relative z-10 p-6 transition-transform duration-500 ease-out" data-aos="fade-up" data-aos-duration="1200">
+            <h1 class="text-5xl md:text-7xl font-black gradient-text text-fill-animation mb-4">Doolcoin</h1>
+            <p class="text-xl md:text-2xl font-light text-gray-200 max-w-3xl mx-auto mb-10">
+                Многогранный кликер, который постоянно растет вместе с сообществом.
+                <br class="hidden md:block"> 
+                Создан <span class="font-bold text-white">одним разработчиком</span> с душой.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="https://t.me/Doolcoin_bot" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto flex items-center justify-center gap-3 text-white font-bold py-4 px-8 rounded-full text-lg btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                    Начать приключение
+                </a>
+                <a href="https://t.me/D00lcoin" target="_blank" class="w-full sm:w-auto flex items-center justify-center gap-3 text-white font-semibold py-4 px-8 rounded-full text-lg btn-secondary">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    Следить за разработкой
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-20 md:py-32 bg-[#0c0a1e]">
+        <div class="max-w-7xl mx-auto">
+            
+            <section class="text-center mb-20 md:mb-32">
+                <div class="px-6">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4" data-aos="zoom-in-up">Что делает <span class="gradient-text">Doolcoin</span> особенным?</h2>
+                    <p class="text-lg text-gray-400 max-w-3xl mx-auto mb-16" data-aos="zoom-in-up" data-aos-delay="100">
+                        Это не просто кликер. Это мир, полный секретов, кастомизации и постоянного развития. Каждая деталь продумана, чтобы ваш игровой опыт был уникальным.
+                    </p>
+                </div>
+                
+                <div class="scroller-wrapper">
+                    <div class="scroller">
+                        <!-- Оригинальные карточки -->
+                        <div class="glass-card p-8 rounded-2xl text-left">
+                            <div class="icon w-16 h-16 rounded-xl flex items-center justify-center mb-6"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></div>
+                            <h3 class="text-2xl font-bold mb-2 text-white">Бесконечная прогрессия</h3>
+                            <p class="text-gray-400">Система "Перерождений" и ивентовые механики предлагают долгосрочные цели и постоянный рост, делая каждый клик значимым.</p>
+                        </div>
+                        <div class="glass-card p-8 rounded-2xl text-left">
+                            <div class="icon w-16 h-16 rounded-xl flex items-center justify-center mb-6"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+                            <h3 class="text-2xl font-bold mb-2 text-white">Глубокая кастомизация</h3>
+                            <p class="text-gray-400">Соберите коллекцию из десятков анимированных скинов и фонов и создайте свой уникальный стиль.</p>
+                        </div>
+                        <div class="glass-card p-8 rounded-2xl text-left">
+                            <div class="icon w-16 h-16 rounded-xl flex items-center justify-center mb-6"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/></svg></div>
+                            <h3 class="text-2xl font-bold mb-2 text-white">Динамичный мир</h3>
+                            <p class="text-gray-400">Регулярные ивенты, система квестов и открытие кейсов не дадут заскучать, постоянно предлагая новые испытания и награды.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-20 md:mb-32 px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4" data-aos="zoom-out-up">Галерея Стилей</h2>
+                    <p class="text-lg text-gray-400 max-w-3xl mx-auto" data-aos="zoom-out-up" data-aos-delay="100">
+                        Нажмите на любой скин, чтобы увидеть его уникальный эффект. Это лишь малая часть того, что ждет вас в игре.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div data-aos="flip-left" data-aos-delay="100">
+                        <div class="preview-circle legendary-skin"></div>
+                        <h4 class="text-center mt-4 text-lg font-semibold text-white">Легендарный</h4>
+                    </div>
+                    <div data-aos="flip-left" data-aos-delay="300">
+                        <div class="preview-circle cosmic-rift-skin"></div>
+                        <h4 class="text-center mt-4 text-lg font-semibold text-white">Космический разлом</h4>
+                    </div>
+                    <div data-aos="flip-left" data-aos-delay="500">
+                        <div class="preview-circle crystalmania-skin"></div>
+                        <h4 class="text-center mt-4 text-lg font-semibold text-white">CrystalMania</h4>
+                    </div>
+                    <div data-aos="flip-left" data-aos-delay="700">
+                        <div class="preview-circle blackhole-skin"></div>
+                         <h4 class="text-center mt-4 text-lg font-semibold text-white">Черная дыра</h4>
+                    </div>
+                     <div class="lg:col-span-2" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="preview-bg sakura-bg">
+                           <div class="petal" style="left: 10%; animation-duration: 12s; --rotation: 450deg;"></div>
+                           <div class="petal" style="left: 30%; animation-duration: 15s; --rotation: 650deg; animation-delay: 2s;"></div>
+                           <div class="petal" style="left: 50%; animation-duration: 10s; --rotation: 350deg; animation-delay: 4s;"></div>
+                           <div class="petal" style="left: 70%; animation-duration: 14s; --rotation: 750deg; animation-delay: 1s;"></div>
+                           <div class="petal" style="left: 90%; animation-duration: 11s; --rotation: 550deg; animation-delay: 3s;"></div>
+                        </div>
+                        <h4 class="text-center mt-4 text-lg font-semibold text-white">Фон "Цветение сакуры"</h4>
+                    </div>
+                    <div class="lg:col-span-2" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="preview-bg cyber-grid-bg"></div>
+                        <h4 class="text-center mt-4 text-lg font-semibold text-white">Фон "Кибер-сетка"</h4>
+                    </div>
+                </div>
+            </section>
+
+             <section class="text-center rounded-3xl p-10 md:p-20 animated-gradient-bg mx-6" data-aos="zoom-in-up">
+                 <h2 class="text-3xl md:text-5xl font-bold mb-4 text-white">Готовы погрузиться?</h2>
+                 <p class="text-lg text-gray-300 max-w-3xl mx-auto mb-10">
+                     Станьте частью растущего сообщества и начните свой путь в мире Doolcoin прямо сейчас. Вас ждут секреты, события и безграничные возможности.
+                 </p>
+                 <a href="https://t.me/Doolcoin_bot" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 text-white font-bold py-4 px-8 rounded-full text-lg btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                    Играть в Doolcoin
+                </a>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-black bg-opacity-20 py-12 px-6">
+        <div class="max-w-6xl mx-auto text-center text-gray-400">
+            <p class="text-2xl font-bold gradient-text mb-4">Doolcoin</p>
+            <div class="flex items-center justify-center gap-6 mb-6">
+                <a href="https://t.me/Doolcoin_bot" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Начать Игру</a>
+                <a href="https://t.me/D00lcoin" target="_blank" class="hover:text-white transition-colors">Telegram Канал</a>
+            </div>
+            <p>&copy; 2025 Doolcoin. Создано с ❤️ для вас.</p>
+            
+            <div id="promo-station" class="mt-10 text-center min-h-[120px] flex flex-col justify-center items-center">
+                <span id="duck" class="text-5xl cursor-pointer transition-transform duration-300 hover:scale-125 hover:rotate-[-10deg] will-change-transform">🦆</span>
+                <span id="egg" class="text-5xl cursor-pointer transition-transform duration-300 hover:scale-110 hidden will-change-transform">🥚</span>
+                <div id="promo-code-wrapper" class="hidden mt-4 opacity-0">
+                    <p class="text-gray-400 mb-2">Твой секретный промокод:</p>
+                    <div class="inline-flex items-center bg-gray-900/50 rounded-lg p-3 px-5 border border-purple-500/30">
+                        <span id="promo-code" class="text-lg font-bold text-white tracking-widest">50KSECRETCRYSTALS</span>
+                        <button id="copy-promo" title="Копировать промокод" class="ml-4 text-purple-400 hover:text-white transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </button>
+                    </div>
+                     <p id="copy-feedback" class="text-green-400 mt-2 h-5 opacity-0 transition-opacity duration-300">Скопировано!</p>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true, offset: 100, easing: 'ease-out-cubic' });
+
+        particlesJS('particles-js', {
+            "particles": { "number": { "value": 60, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#a78bfa" }, "shape": { "type": "circle" }, "opacity": { "value": 0.3, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.05, "sync": false } }, "size": { "value": 3, "random": true }, "line_linked": { "enable": true, "distance": 150, "color": "#a78bfa", "opacity": 0.1, "width": 1 }, "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "out_mode": "out" } },
+            "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" } }, "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.3 } } } }, "retina_detect": true
+        });
+
+        const heroContent = document.getElementById('hero-content');
+        window.addEventListener('scroll', () => {
+            if (heroContent) heroContent.style.transform = `translateY(${window.pageYOffset * 0.3}px)`;
+        });
+        
+        // --- НОВАЯ Логика управляемой прокрутки ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const scroller = document.querySelector(".scroller");
+            if (!scroller) return;
+
+            const scrollerInner = Array.from(scroller.children);
+            const itemsInView = 3; // Сколько карточек клонировать для плавности
+
+            // Клонируем в конец
+            scrollerInner.slice(0, itemsInView).forEach(item => {
+                scroller.appendChild(item.cloneNode(true));
+            });
+
+            // Клонируем в начало
+            scrollerInner.slice(-itemsInView).reverse().forEach(item => {
+                scroller.prepend(item.cloneNode(true));
+            });
+            
+            // Устанавливаем начальную позицию прокрутки
+            scroller.parentElement.scrollLeft = scroller.children[itemsInView].offsetLeft - scroller.parentElement.offsetLeft;
+
+            let isScrolling;
+            scroller.parentElement.addEventListener('scroll', () => {
+                window.clearTimeout(isScrolling);
+                isScrolling = setTimeout(() => {
+                    const itemWidth = scrollerInner[0].offsetWidth;
+                    const totalWidth = itemWidth * scrollerInner.length;
+                    const scrollLeft = scroller.parentElement.scrollLeft;
+
+                    if (scrollLeft <= itemWidth) {
+                         scroller.parentElement.style.scrollBehavior = 'auto';
+                         scroller.parentElement.scrollLeft += totalWidth;
+                         scroller.parentElement.style.scrollBehavior = 'smooth';
+                    }
+                    if (scrollLeft >= totalWidth + (itemWidth * (itemsInView - 1))) {
+                         scroller.parentElement.style.scrollBehavior = 'auto';
+                         scroller.parentElement.scrollLeft -= totalWidth;
+                         scroller.parentElement.style.scrollBehavior = 'smooth';
+                    }
+                }, 150);
+            }, { passive: true });
+        });
+        
+        const duck = document.getElementById('duck');
+        const egg = document.getElementById('egg');
+        const promoWrapper = document.getElementById('promo-code-wrapper');
+        const copyBtn = document.getElementById('copy-promo');
+        const promoCode = document.getElementById('promo-code');
+        const copyFeedback = document.getElementById('copy-feedback');
+
+        if(duck && egg && promoWrapper && copyBtn) {
+            duck.addEventListener('click', () => {
+                duck.classList.add('hidden');
+                egg.classList.remove('hidden');
+            });
+
+            egg.addEventListener('click', () => {
+                egg.classList.add('hidden');
+                promoWrapper.classList.remove('hidden');
+                setTimeout(() => {
+                    promoWrapper.style.transition = 'opacity 0.5s ease';
+                    promoWrapper.style.opacity = '1';
+                }, 10);
+            });
+
+            copyBtn.addEventListener('click', () => {
+                const textToCopy = promoCode.textContent;
+                const textArea = document.createElement('textarea');
+                textArea.value = textToCopy;
+                textArea.style.position = 'absolute';
+                textArea.style.left = '-9999px';
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    copyFeedback.style.opacity = '1';
+                    setTimeout(() => { copyFeedback.style.opacity = '0'; }, 2000);
+                } catch (err) { console.error('Не удалось скопировать текст: ', err); }
+                document.body.removeChild(textArea);
+            });
+        }
+
+        function createTapEffect(event, skin, targetElement) {
+            if (!targetElement) return;
+            const rect = targetElement.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+            const clickY = event.clientY - rect.top;
+            let tapEffect;
+
+            switch(skin) {
+                case 'cosmic-rift-skin':
+                    for (let i = 0; i < 10; i++) { const star = document.createElement('div'); star.className = 'cosmic-rift-tap-effect'; const angle = Math.random() * Math.PI * 2; const radius = Math.random() * (rect.width / 2.5); star.style.left = `${clickX + Math.cos(angle) * radius - 2}px`; star.style.top = `${clickY + Math.sin(angle) * radius - 2}px`; star.style.animationDelay = `${Math.random() * 0.2}s`; targetElement.appendChild(star); setTimeout(() => star.remove(), 800); }
+                    return;
+                case 'legendary-skin':
+                    for (let i = 0; i < 7; i++) { const spark = document.createElement('div'); spark.classList.add('legendary-tap-effect'); spark.style.left = `${clickX - 4}px`; spark.style.top = `${clickY - 4}px`; const angle = Math.random() * Math.PI * 2; const distance = Math.random() * 100 + 40; spark.style.setProperty('--spark-x', `${Math.cos(angle) * distance}px`); spark.style.setProperty('--spark-y', `${Math.sin(angle) * distance}px`); targetElement.appendChild(spark); setTimeout(() => spark.remove(), 800); }
+                    return;
+                case 'blackhole-skin':
+                    tapEffect = document.createElement('div'); tapEffect.classList.add('blackhole-tap-effect'); tapEffect.style.left = `${clickX}px`; tapEffect.style.top = `${clickY}px`;
+                    break;
+                case 'crystalmania-skin':
+                    for (let i = 0; i < 6; i++) { const shard = document.createElement('div'); shard.classList.add('crystalmania-tap-effect'); shard.style.left = `${clickX - 7.5}px`; shard.style.top = `${clickY - 7.5}px`; shard.style.borderColor = `hsl(${Math.random() * 360}, 100%, 70%)`; shard.style.setProperty('--rot-end', `${(Math.random() - 0.5) * 720}deg`); targetElement.appendChild(shard); setTimeout(()=> shard.remove(), 700); }
+                    return;
+                default:
+                    tapEffect = document.createElement('div'); tapEffect.classList.add('tap-effect'); tapEffect.style.transformOrigin = `${clickX}px ${clickY}px`;
+                    break;
+            }
+            if (tapEffect) { targetElement.appendChild(tapEffect); tapEffect.addEventListener('animationend', () => tapEffect.remove()); }
+        }
+
+        document.querySelectorAll('.preview-circle').forEach(circle => {
+            circle.addEventListener('click', (event) => {
+                const skinClass = Array.from(circle.classList).find(c => c.endsWith('-skin'));
+                if (skinClass) createTapEffect(event, skinClass, circle);
+            });
+        });
+    </script>
+</body>
+</html>
+
